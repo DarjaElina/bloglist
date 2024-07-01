@@ -1,9 +1,9 @@
 POST http://localhost:3003/api/blogs/
-content-type: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Iml2YW4iLCJpZCI6IjY2ODI3ZDI1Y2I2ZGU3OWRkOTYwNDcxNSIsImlhdCI6MTcxOTgzMTAyNn0.1-5pmNZJaNRcnmQToUFan1u0T9z2TiGP8aaLzPtXBlk
 
 {
-  "title": "cherries",
-  "author": "me",
-  "url": "www.cherries.com",
-  "likes": 1000000000
+  "title": "blog about ivans n2",
+  "author": "ivan",
+  "url": "www.ivan.com"
 }
