@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import Blog from "./Blog"
+import Blog from './Blog'
 import blogService from '../services/blogs'
 import Togglable from './Togglable'
 import BlogForm from './BlogForm'
@@ -12,7 +12,7 @@ const BlogList = () => {
   const [blogNotification, setBlogNotification] = useState(null)
 
   const blogFormRef = useRef()
-  
+
   useEffect(() => {
     blogService
       .getAll()
@@ -25,14 +25,14 @@ const BlogList = () => {
       .create(blogObj)
       .then(returnedBlog => {
         setBlogs(blogs.concat(returnedBlog))
-        setBlogNotification({type: 'success', message: `blog ${returnedBlog.title} added successfully`})
+        setBlogNotification({ type: 'success', message: `blog ${returnedBlog.title} added successfully` })
         setTimeout(() => {
           setBlogNotification(null)
         }, 5000)
       })
       .catch((exception => {
         console.log(exception)
-        setBlogNotification({type: 'error', message: 'error adding blog'})
+        setBlogNotification({ type: 'error', message: 'error adding blog' })
         setTimeout(() => {
           setBlogNotification(null)
         }, 5000)
@@ -44,7 +44,7 @@ const BlogList = () => {
       .putLike(id, updatedBlog)
       .then((updatedBlog) => {
         setBlogs(blogs.map((blog) => {
-          return blog.id === updatedBlog.id ? {...blog, likes: updatedBlog.likes} : blog
+          return blog.id === updatedBlog.id ? { ...blog, likes: updatedBlog.likes } : blog
         }))
       })
   }
@@ -52,24 +52,24 @@ const BlogList = () => {
   const removeBlog = (id) => {
     const blogToRemove = blogs.find(b => b.id === id)
     if (window.confirm(`Remove blog ${blogToRemove.title}?`))
-    blogService
-      .deleteBlog(id)
-      .then(() => {
-        setBlogs(blogs.filter((blog) => {
-          return blog.id !== id
+      blogService
+        .deleteBlog(id)
+        .then(() => {
+          setBlogs(blogs.filter((blog) => {
+            return blog.id !== id
+          }))
+          setBlogNotification({ type: 'success', message: `blog ${blogToRemove.title} removed successfully` })
+          setTimeout(() => {
+            setBlogNotification(null)
+          }, 5000)
+        })
+        .catch((exception => {
+          console.log(exception)
+          setBlogNotification({ type: 'error', message: 'error removing blog' })
+          setTimeout(() => {
+            setBlogNotification(null)
+          }, 5000)
         }))
-        setBlogNotification({type: 'success', message: `blog ${blogToRemove.title} removed successfully`})
-        setTimeout(() => {
-          setBlogNotification(null)
-        }, 5000)
-      })
-      .catch((exception => {
-        console.log(exception)
-        setBlogNotification({type: 'error', message: 'error removing blog'})
-        setTimeout(() => {
-          setBlogNotification(null)
-        }, 5000)
-      }))
   }
 
   const sortedBlogs = blogs.sort((a, b) => b.likes - a.likes)
@@ -80,7 +80,7 @@ const BlogList = () => {
       <h2>Blogs</h2>
       <Notification notification={blogNotification}/>
       <Togglable buttonLabel="new blog" ref={blogFormRef}>
-          <BlogForm createBlog={addBlog}/>
+        <BlogForm createBlog={addBlog}/>
       </Togglable>
       {sortedBlogs.map(blog =>
         <Blog
