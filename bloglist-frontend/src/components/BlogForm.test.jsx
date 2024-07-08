@@ -8,9 +8,9 @@ test('form calls the event handler prop with the right details when a new blog i
 
   const { container } = render(<BlogForm createBlog={createBlog} />)
 
-  const titleInput = container.querySelector('#title-input')
-  const authorInput = container.querySelector('#author-input')
-  const urlInput = container.querySelector('#url-input')
+  const titleInput = screen.getByTestId('title-input')
+  const authorInput = screen.getByTestId('author-input')
+  const urlInput = screen.getByTestId('url-input')
   const sendButton = screen.getByText('create')
 
   await user.type(titleInput, 'some blog')

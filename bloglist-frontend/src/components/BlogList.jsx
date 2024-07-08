@@ -5,7 +5,7 @@ import Togglable from './Togglable'
 import BlogForm from './BlogForm'
 import Notification from './Notification'
 
-const BlogList = () => {
+const BlogList = ({ user }) => {
 
   const [blogs, setBlogs] = useState([])
 
@@ -24,6 +24,7 @@ const BlogList = () => {
     blogService
       .create(blogObj)
       .then(returnedBlog => {
+        console.log(returnedBlog)
         setBlogs(blogs.concat(returnedBlog))
         setBlogNotification({ type: 'success', message: `blog ${returnedBlog.title} added successfully` })
         setTimeout(() => {
@@ -74,7 +75,6 @@ const BlogList = () => {
 
   const sortedBlogs = blogs.sort((a, b) => b.likes - a.likes)
 
-
   return (
     <div>
       <h2>Blogs</h2>
@@ -84,6 +84,7 @@ const BlogList = () => {
       </Togglable>
       {sortedBlogs.map(blog =>
         <Blog
+          isRemovable={blog.user.username === user.username ? true : false}
           likeBlog={handleLike}
           removeBlog={removeBlog}
           key={blog.id}

@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import BlogDetails from './BlogDetails'
 
-const Blog = ({ blog, likeBlog, removeBlog }) => {
+const Blog = ({ blog, likeBlog, removeBlog, isRemovable }) => {
   const [isVisible, setIsVisible] = useState(false)
 
   const btnText = isVisible ? 'hide' : 'view'
@@ -14,11 +14,11 @@ const Blog = ({ blog, likeBlog, removeBlog }) => {
   }
 
   return (
-    <div className='blog' style={style}>
-      {blog.title} <button onClick={() => setIsVisible(!isVisible)}>{btnText}</button>
-      <br/>
-      {blog.author}
+    <div data-testid="blog" className='blog' style={style}>
+      <p data-testid="title" style={{ margin: 0, padding: 0 }}>{blog.title} <button onClick={() => setIsVisible(!isVisible)}>{btnText}</button></p>
+      <p data-testid="author" style={{ margin: 0, padding: 0 }}>{blog.author}</p>
       {isVisible && <BlogDetails
+        isRemovable={isRemovable}
         removeBlog={removeBlog}
         likeBlog={likeBlog}
         blog={blog}

@@ -4,7 +4,6 @@ import LogInForm from './components/LogInForm'
 import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
-import Togglable from './components/Togglable'
 import UserStatus from './components/UserStatus'
 
 const App = () => {
@@ -50,12 +49,10 @@ const App = () => {
     <div>
       <h2 style={{ fontSize: '32px', fontStyle: 'italic', color: 'Pink' }}>Blog List</h2>
       <Notification notification={loginNotification}/>
-      {!user && <Togglable buttonLabel="log in">
-        <LogInForm onLogin={handleLogin}/>
-      </Togglable>}
+      {!user && <LogInForm onLogin={handleLogin}/>}
       {user && <div>
         <UserStatus username={user.name} onLogout={handleLogout}/>
-        <BlogList/>
+        <BlogList user={user}/>
       </div>}
     </div>
   )

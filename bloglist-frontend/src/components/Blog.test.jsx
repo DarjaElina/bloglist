@@ -41,7 +41,7 @@ test('url and likes are shown when the button is clicked', async () => {
     }
   }
 
-  
+
   const loggedBlogappUser = JSON.stringify({ username: 'testuser' })
   window.localStorage.setItem('loggedBlogappUser', loggedBlogappUser)
 
@@ -67,7 +67,7 @@ test('clicking the like button twice calls event handler twice', async () => {
       username: 'testuser'
     }
   }
-  
+
   const loggedBlogappUser = JSON.stringify({ username: 'testuser' })
   window.localStorage.setItem('loggedBlogappUser', loggedBlogappUser)
 

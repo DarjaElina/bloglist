@@ -1,7 +1,8 @@
 import { FcLikePlaceholder } from 'react-icons/fc'
 import PropTypes from 'prop-types'
 
-const BlogDetails = ({ blog, likeBlog, removeBlog }) => {
+const BlogDetails = ({ blog, likeBlog, removeBlog, isRemovable }) => {
+
 
   const like = () => {
     const likedBlog = {
@@ -12,24 +13,19 @@ const BlogDetails = ({ blog, likeBlog, removeBlog }) => {
       url: blog.url
     }
     likeBlog(blog.id, likedBlog)
-    console.log(blog)
   }
-
-  console.log(JSON.parse(window.localStorage.getItem('loggedBlogappUser')).username)
-
-  const loggedUserName = JSON.parse(window.localStorage.getItem('loggedBlogappUser')).username
 
   const onRemoveBlog = () => {
     removeBlog(blog.id)
   }
 
+
   return (
     <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
       <li>{blog.url}</li>
       <li>{blog.user.name}</li>
-      <li style={{ display: 'flex', color: 'pink' }}>{blog.likes} <FcLikePlaceholder aria-label="like button" onClick={like}/></li>
-      {/* <button onClick={like} >like</button></li> */}
-      {loggedUserName === blog.user.username ? <button onClick={onRemoveBlog}>remove blog</button> : null}
+      <li data-testid='likes' style={{ display: 'flex', color: 'pink' }}>{blog.likes} <FcLikePlaceholder style={{ cursor: 'pointer' }} aria-label="like button" onClick={like}/></li>
+      {isRemovable && <button onClick={onRemoveBlog}>remove blog</button>}
     </ul>
   )
 }
